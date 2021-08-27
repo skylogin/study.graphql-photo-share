@@ -3,23 +3,40 @@ const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const expressPlayground = require('graphql-playground-middleware-express').default;
 
+const { MongoClient } = require('mongodb');
+
+require('dotenv').config();
 
 
 // graphql 파일분리
 const typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 const resolvers = require('./resolvers');
 
-//테스트 데이터
-var { users, photos, tags } = require('./testData');
-
-
 
 async function app() {
   var app = express();
-  
+  const MONGO_DB = process.env.DB_HOST;
+
+
+  try {
+    const client = await MongoClient.connect(MONGO_DB, { useNewUrlParser: true })
+    db = client.db();
+  } catch (error) {
+    console.log(`
+      Mongo DB Host not found!
+      please add DB_HOST environment variable to .env file
+      exiting...
+       
+    `)
+    process.exit(1)
+  }
+
+  const context = { db };
+
   const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context
   });
   
   await server.start();

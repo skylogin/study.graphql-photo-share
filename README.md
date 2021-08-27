@@ -10,4 +10,4 @@ ex) http://localhost:3000?code=[CODE]
 
 ### client
 
-react의 .env는 prefix로 <REACT_APP\_>이 붙어야함
+react의 .env는 prefix로 REACT_APP\_이 붙어야함

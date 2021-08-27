@@ -6,6 +6,7 @@
     "apollo-boost": "0.1.10",
     "apollo-cache-persist": "0.1.1",
     "graphql": "0.13.2",
+    "graphql-request": "^3.5.0",
     "react": "16.4.1",
     "react-apollo": "2.1.9",
     "react-dom": "16.4.1",

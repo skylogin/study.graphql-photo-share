@@ -3,9 +3,10 @@ const { GraphQLScalarType } = require('graphql');
 module.exports = {
   // trivial resolver
   Photo: {
-    url: parent => `http://github.com/skylogin/img/${parent.id}.jpg`,
-    postedBy: parent => {
-      return users.find(u => u.githubLogin === parent.githubUser);
+    id: parent => parent.id || parent._id,
+    url: parent => `/img/photos/${parent._id}.jpg`,
+    postedBy: async (parent, args, { db }) => {
+      return await db.collection('users').findOne({ githubLogin: parent.userID });
     },
     taggedUsers: parent => {
       return tags

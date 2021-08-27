@@ -1,4 +1,4 @@
-
+const { GraphQLScalarType } = require('graphql');
 const { readFileSync } = require('fs')
 const { ApolloServer } = require('apollo-server');
 
@@ -16,7 +16,7 @@ var _id = 4;
 const resolvers = {
   Query: {
     totalPhotos: () => photos.length,
-    allPhotos: () => photos,
+    allPhotos: (parent, args) => photos,
   },
 
   Mutation: {
@@ -24,6 +24,7 @@ const resolvers = {
       var newPhoto = {
         id: _id++,
         ...args.input,
+        created: new Date()
       };
 
       photos.push(newPhoto);
@@ -60,7 +61,14 @@ const resolvers = {
         //photoId배열을 바탕으로 사진 찾기
         .map(photoId => photos.find(p=> p.id === photoId));
     }
-  }
+  },
+  DateTime: new GraphQLScalarType({
+    name: 'DateTime',
+    description: 'A valid date time value.',
+    parseValue: value => new Date(value),
+    serialize: value => new Date(value).toISOString(),
+    parseLiteral: ast => ast.value
+  })
 };
 
 

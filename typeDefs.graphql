@@ -10,6 +10,16 @@ enum PhotoCategory {
 }
 
 """
+사용자
+"""
+type User {
+  githubLogin: ID!
+  name: String
+  avatar: String
+  postedPhotos: [Photo!]!
+}
+
+"""
 사진
 """
 type Photo {
@@ -18,6 +28,7 @@ type Photo {
   name: String!
   description: String
   category: PhotoCategory!
+  postedBy: User!
 }
 
 """

@@ -37,6 +37,14 @@ type Photo {
 }
 
 """
+권한 페이로드
+"""
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+"""
 사진 뮤테이션에 적용할 인풋
 """
 input PostPhotoInput {
@@ -60,4 +68,5 @@ type Query {
 """
 type Mutation {
   postPhoto(input: PostPhotoInput!): Photo!
+  githubAuth(code: String!): AuthPayload!
 }

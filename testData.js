@@ -1,4 +1,4 @@
-users = [
+var users = [
   {
     githubLogin: "mHattrup",
     name: "Mike Hattrup",
@@ -13,7 +13,7 @@ users = [
   },
 ];
 
-photos = [
+var photos = [
   {
     id: "1",
     name: "Dropping the Heart Chute",
@@ -36,8 +36,29 @@ photos = [
   },
 ];
 
+var tags = [
+  {
+    photoId: '1',
+    userId: 'gPlake',
+  },
+  {
+    photoId: '2',
+    userId: 'gPlake',
+  },
+  {
+    photoId: '2',
+    userId: 'sSchmidt',
+  },
+  {
+    photoId: '2',
+    userId: 'mHattrup',
+  },
+  
+]
+
 
 module.exports = {
   users,
   photos,
+  tags
 };

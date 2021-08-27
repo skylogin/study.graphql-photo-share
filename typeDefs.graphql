@@ -17,6 +17,7 @@ type User {
   name: String
   avatar: String
   postedPhotos: [Photo!]!
+  inPhotos: [Photo!]!
 }
 
 """
@@ -29,6 +30,7 @@ type Photo {
   description: String
   category: PhotoCategory!
   postedBy: User!
+  taggedUsers: [User!]!
 }
 
 """

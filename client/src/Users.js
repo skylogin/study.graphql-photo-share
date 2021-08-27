@@ -3,16 +3,17 @@ import { Query } from 'react-apollo';
 import { ROOT_QUERY } from './App';
 
 const Users = () =>
-  <Query query={ROOT_QUERY}>
-    {({ data, loading }) => loading? <p>사용자 불러오는 중...</p>:
-      <UserList count={data.totalUsers} users={data.allUsers} />
+  <Query query={ROOT_QUERY} pollInterval={8000}>
+    {({ data, loading, refetch }) => loading? <p>사용자 불러오는 중...</p>:
+      <UserList count={data.totalUsers} users={data.allUsers} refetchUsers={refetch} />
     }
   </Query>
 ;
 
-const UserList = ({ count, users }) =>
+const UserList = ({ count, users, refetchUsers }) =>
   <div>
     <p>{count} Users</p>
+    <button onClick={() => refetchUsers()}>다시가져오기</button>
     <ul>
       {users.map(user =>
         <UserListItem key={user.githubLogin}

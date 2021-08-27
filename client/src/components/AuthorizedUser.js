@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Mutation} from 'react-apollo';
+import { Mutation } from 'react-apollo';
 
 import { ROOT_QUERY, GITHUB_AUTH_MUTATION } from '../graphql';
+
+import Me from './Me';
 
 const AuthorizedUser = ({ location, match, history }) => {
   const [signingIn, setSigningIn] = useState(false);
@@ -36,9 +38,11 @@ const AuthorizedUser = ({ location, match, history }) => {
       {mutation => {
         githubAuthMutation = mutation;
         return (
-          <button onClick={requestCode} disabled={signingIn}>
-            깃허브로 로그인
-          </button>
+          <Me signingIn={signingIn}
+            requestCode={requestCode}
+            logout={() => localStorage.removeItem('token')}
+          />
+          
         )
       }}
     </Mutation>

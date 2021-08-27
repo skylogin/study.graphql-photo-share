@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 
-import { ROOT_QUERY, ADD_FAKE_USERS_MUTATION } from './graphql';
+import { ROOT_QUERY, ADD_FAKE_USERS_MUTATION } from '../graphql';
 
 const Users = () =>
   <Query query={ROOT_QUERY} pollInterval={8000}>

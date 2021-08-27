@@ -1,6 +1,16 @@
 import React from 'react';
-import Users from './Users';
+import { BrowserRouter } from 'react-router-dom';
 
-const App = () => <Users />;
+import AuthorizedUser from './components/AuthorizedUser';
+import Users from './components/Users';
 
-export default App;
+const App = () => 
+  <BrowserRouter>
+    <div>
+      <AuthorizedUser />
+      <Users />
+    </div>
+  </BrowserRouter>
+;
+
+export default App; 

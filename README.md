@@ -9,3 +9,5 @@ ex) http://localhost:3000?code=[CODE]
 해당 code를 복사 후, githubAuth mutation 수행하면 정보를 가져옴
 
 ### client
+
+react의 .env는 prefix로 REACT*APP*이 붙어야함

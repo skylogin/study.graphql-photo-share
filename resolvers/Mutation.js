@@ -1,4 +1,6 @@
 const { GraphQLScalarType } = require('graphql');
+const fetch = require('node-fetch')
+
 const { authorizeWithGithub } = require('../lib');
 
 
@@ -53,4 +55,30 @@ module.exports = {
     return { user: latestUserInfo, token: access_token }
 
   },
+  async addFakeUsers(parent, { count }, { db }){
+    const randomUserApi = `https://randomuser.me/api/?results=${count}`;
+    const { results } = await fetch(randomUserApi).then(res => res.json());
+
+    const users = results.map(r => ({
+      githubLogin: r.login.username,
+      name: `${r.name.first} ${r.name.last}`,
+      avartar: r.picture.thumbnail,
+      githubToken: r.login.sha1
+    }));
+
+    await db.collection('users').insertMany(users);
+    return users;
+  },
+  async fakeUserAuth(parent, { githubLogin }, { db }){
+    const user = await db.collection('users').findOne({ githubLogin });
+
+    if(!user){
+      throw new Error(`Cannot find user with githublogin "${githubLogin}`);
+    }
+
+    return {
+      token: user.githubToken,
+      user
+    }
+  }
 };

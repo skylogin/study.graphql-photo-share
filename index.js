@@ -1,22 +1,8 @@
+
+const { readFileSync } = require('fs')
 const { ApolloServer } = require('apollo-server');
 
-const typeDefs = `
-  type Photo {
-    id: ID!
-    url: String!
-    name: String!
-    description: String
-  }
-
-  type Query {
-    totalPhotos: Int!
-    allPhotos: [Photo!]!
-  }
-
-  type Mutation {
-    postPhoto(name: String! description: String): Photo!
-  }
-`;
+var typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
 
 
 var _id = 0;
@@ -32,7 +18,7 @@ const resolvers = {
     postPhoto(parent, args){
       var newPhoto = {
         id: _id++,
-        ...args,
+        ...args.input,
       };
 
       photos.push(newPhoto);

@@ -9,7 +9,7 @@ require('dotenv').config();
 
 
 // graphql 파일분리
-const typeDefs = readFileSync('./typeDefs.graphql', 'UTF-8')
+const typeDefs = readFileSync('typeDefs.graphql', 'UTF-8')
 const resolvers = require('./resolvers');
 
 

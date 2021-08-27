@@ -1,6 +1,7 @@
 import React from 'react';
-import { Query } from 'react-apollo';
-import { ROOT_QUERY } from './App';
+import { Query, Mutation } from 'react-apollo';
+
+import { ROOT_QUERY, ADD_FAKE_USERS_MUTATION } from './graphql';
 
 const Users = () =>
   <Query query={ROOT_QUERY} pollInterval={8000}>
@@ -14,6 +15,11 @@ const UserList = ({ count, users, refetchUsers }) =>
   <div>
     <p>{count} Users</p>
     <button onClick={() => refetchUsers()}>다시가져오기</button>
+    <Mutation mutation={ADD_FAKE_USERS_MUTATION} variables={{ count: 1}} refetchQueries={[{ query: ROOT_QUERY }]}>
+      {
+        addFakeUsers => <button onClick={addFakeUsers}>임시 사용자 추가</button>
+      }
+    </Mutation>
     <ul>
       {users.map(user =>
         <UserListItem key={user.githubLogin}
